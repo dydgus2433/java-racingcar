@@ -1,32 +1,30 @@
 package domain;
 
-import domain.Car;
-
+import java.util.ArrayList;
 import java.util.List;
 
 public class CarResult {
 
-    public static String getRaceWinners(List<Car> cars) {
+    private static final String COMMA = ",";
+
+    public static List<String> getRaceWinners(List<Car> cars) {
         int max = getMaxPosition( cars);
 
         return getWinners(cars, max);
     }
 
-    public static String getWinners(List<Car> cars, int max) {
-        String result = "";
+    public static List<String> getWinners(List<Car> cars, int max) {
+        List<String> result = new ArrayList<>();
         for(Car car : cars){
-            result += car.getWinner(max);
+            if(car.isWinner(max)){
+                result.add(car.getName());
+            }
         }
-        return printWinners(result);
+        return result;
     }
 
-    public static String printWinners(String result) {
-        if(result.length() > 0) {
-            result = result.substring(0, result.length() - 1);
-            result += "가 최종 우승했습니다.";
-        }
-        System.out.println(result);
-        return result;
+    public static String makeWinnersSentence(List<String> result) {
+        return  stringJoin(result);
     }
 
     public static int getMaxPosition(List<Car> cars) {
@@ -35,5 +33,8 @@ public class CarResult {
             max = car.getMaxPosition(max);
         }
         return max;
+    }
+    public static String stringJoin(List<String> strArr){
+        return String.join(COMMA,strArr);
     }
 }

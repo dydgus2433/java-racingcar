@@ -12,6 +12,7 @@ public class ConsoleMain {
         InputView inputView = new InputView(sc);
         RacingGame racingGame = new RacingGame(inputView.getRacingCars().split(","), inputView.getTryCnt());
         ResultView.watchRace(racingGame);
-        CarResult.getRaceWinners(racingGame.getCars());
+        String result = CarResult.makeWinnersSentence(CarResult.getRaceWinners(racingGame.getCars()));
+        System.out.println(String.format("%s가 최종 우승했습니다", result));
     }
 }

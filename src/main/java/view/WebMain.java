@@ -28,7 +28,6 @@ public class WebMain {
             String names = req.queryParams("names");
             String[] name = names.split(" ");
             List<Car> cars = new ArrayList<>();
-
             for(int i =0; i < name.length; i++){
                 cars.add(new Car(name[i]));
             }
@@ -47,10 +46,10 @@ public class WebMain {
                 cars = racingGame.move();
             }
 
-            String result = CarResult.getRaceWinners(cars);
+            List<String> result = CarResult.getRaceWinners(cars);
 
             model.put("cars",cars);
-            model.put("result", result);
+            model.put("result", CarResult.makeWinnersSentence(result));
 
             return render(model, "/result.html");
         });

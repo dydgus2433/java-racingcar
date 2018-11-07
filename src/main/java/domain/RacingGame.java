@@ -1,5 +1,6 @@
 package domain;
 
+import utils.RandomGenerator;
 import view.InputView;
 import view.ResultView;
 
@@ -42,11 +43,10 @@ public class RacingGame {
     }
 
     public List<Car> move() {
-        List<Car> nextStepCars = new ArrayList<>();
-        for(int i = 0; i < cars.size(); i++){
-             nextStepCars.add(tryMove(cars.get(i)));
+
+        for(Car car : cars){
+             tryMove(car);
         }
-        this.cars = nextStepCars;
         return cars;
     }
 
@@ -55,13 +55,10 @@ public class RacingGame {
     }
 
     private Car tryMove(Car car) {
-        return car.addPosition(getRandomNum());
+        return car.addPosition(RandomGenerator.getRandomNum(MAX_NUM));
     }
 
-    private int getRandomNum() {
-        Random random = new Random();
-        return random.nextInt(MAX_NUM);
-    }
+
 
 
 

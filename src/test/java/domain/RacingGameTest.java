@@ -1,8 +1,5 @@
-package racing;
+package domain;
 
-import domain.Car;
-import domain.CarResult;
-import domain.RacingGame;
 import org.junit.Before;
 import org.junit.Test;
 import view.ResultView;
@@ -77,11 +74,6 @@ public class RacingGameTest {
         ResultView.watchRace(racingGame);
     }
 
-    @Test(expected = NullPointerException.class)
-    public void null값테스트() {
-        racingGame = new RacingGame(null, 5);
-    }
-
     @Test
     public void test(){
         ResultView.watchRace(racingGame);
@@ -91,8 +83,8 @@ public class RacingGameTest {
     public void 최종결과테스트() {
         List<Car> cars = Arrays.asList(new Car("pobi", 1) , new Car("crong",3), new Car("honux",2));
 
-        String result = CarResult.getRaceWinners(cars);
-        assertThat(result).contains("crong");
+        List<String> result = CarResult.getRaceWinners(cars);
+        assertThat(carResult.stringJoin(result)).contains("crong");
     }
 
     @Test
@@ -121,15 +113,15 @@ public class RacingGameTest {
         List<Car> cars = Arrays.asList(new Car("pobi", 1) , new Car("crong",3), new Car("honux",2));
 
         int max = carResult.getMaxPosition( cars);
-        assertThat((carResult.getWinners(cars,max))).contains("crong");
-        assertThat((carResult.getWinners(cars,5).length())).isEqualTo(0);
+        assertThat(carResult.makeWinnersSentence(carResult.getWinners(cars,max))).contains("crong");
+        assertThat((carResult.getWinners(cars,5).size())).isEqualTo(0);
     }
 
     @Test
     public void 우승자구하기테스트_우승자출력하기() {
         List<Car> cars = Arrays.asList(new Car("pobi", 1) , new Car("crong",3), new Car("honux",4));
-        String result = carResult.getRaceWinners(cars);
-        assertThat(result).isEqualTo("honux가 최종 우승했습니다.");
+        List<String> result = carResult.getRaceWinners(cars);
+        assertThat(carResult.makeWinnersSentence(result)).isEqualTo("honux가 최종 우승했습니다.");
     }
 
 

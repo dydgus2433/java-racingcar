@@ -2,16 +2,19 @@ package view;
 
 import domain.Car;
 import domain.RacingGame;
+import utils.StringUtils;
 
 import java.util.List;
 
 public class ResultView {
+    private static final String DASH = "-";
 
     public static void watchRace(RacingGame racingGame){
         System.out.println("실행결과");
         for (int i = 0 ; i < racingGame.getTime(); i++){
             watchTrace(racingGame.move());
         }
+
     }
 
     private static List<Car> watchTrace(List<Car> cars) {
@@ -28,11 +31,8 @@ public class ResultView {
     }
 
     private static void drawTrace(Car car) {
-        StringBuffer sb = new StringBuffer();
-        for (int k = 0; k < car.getPosition(); k++) {
-           sb.append("-");
-        }
-        System.out.println(sb.toString());
+        System.out.println(StringUtils.repeat(DASH,car.getPosition()));
+
     }
 
 }

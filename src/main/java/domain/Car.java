@@ -1,6 +1,8 @@
 package domain;
 
 
+import utils.StringUtils;
+
 public class Car {
     private static final int MIN_NUM = 4;
 
@@ -40,18 +42,18 @@ public class Car {
             return max < position ? position : max;
     }
 
-    public String getWinner(int maxPosition) {
+    public boolean isWinner(int maxPosition) {
         if(maxPosition ==  position) {
-            return name+ ",";
+            return true;
         }
-        return "";
+        return false;
     }
 
     public String getDistance() {
-        distance = "";
-        for(int i =0; i < position; i++){
-            distance += "\u00a0";
+        String result = StringUtils.repeat("\u00a0", position);
+        if(StringUtils.isBlank(result)){
+            return "";
         }
-        return distance;
+        return result;
     }
 }
